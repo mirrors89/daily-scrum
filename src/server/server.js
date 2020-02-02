@@ -7,7 +7,13 @@ const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 8080;
 
 // Set up Mongoose
-mongoose.connect(isDev ? config.db_dev : config.db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoCreate: true });
+mongoose.connect(isDev ? config.db_dev : config.db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    autoCreate: true
+});
 mongoose.Promise = global.Promise;
 
 const app = express();

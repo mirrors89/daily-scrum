@@ -2,6 +2,10 @@ const User = require('../../models/User');
 const UserSession = require('../../models/UserSession');
 
 module.exports = (app) => {
+
+    /**
+     * Sign Up
+     */
     app.post('/api/account/signup', (req, res, next) => {
         const { body } = req;
         const { 
@@ -76,7 +80,9 @@ module.exports = (app) => {
         })
     });
 
-
+    /**
+     * Sign In
+     */
     app.post('/api/account/signin', (req, res, next) => {
         const { body } = req;
         const { password } = body;
@@ -86,13 +92,13 @@ module.exports = (app) => {
             return res.send({
                 success: false,
                 message: '오류: 이메일을 입력해 주세요.'
-            })
+            });
         }
         if(!password) {
             return res.send({
                 success: false,
                 message: '오류: 비밀번호를 입력해 주세요.'
-            })
+            });
         }
 
         email = email.toLowerCase();
@@ -134,11 +140,76 @@ module.exports = (app) => {
                 }
                 return res.send({
                     success: true,
+                    message: '로그인 되었습니다.',
                     token: doc._id
                 });
             });
         });
 
 
+    });
+
+    /**
+     * verify
+     */
+
+    app.get('/api/account/verify', (req, res, next) => {
+        // Get the token
+        const { query } = req; 
+        const { token } = query;
+
+        UserSession.find({
+            _id: token,
+            isDelete: false
+        }, (err, session) => {
+            if(err) {
+                console.log(err);
+                return res.send({
+                    success: false,
+                    message: '오류: 서버 오류가 발생했습니다.'
+                });
+            }
+
+            if(session.length != 1) {
+                return res.send({
+                    success: false,
+                    message: '오류: 권한이 없습니다.'
+                });
+            }
+
+            return res.send({
+                success: true,
+                message: 'success'
+            });
+        });
+    });
+
+    /**
+     * logout
+     */
+    app.get('/api/account/logout', (req, res, next) => {
+        // Get the token
+        const { query } = req; 
+        const { token } = query;
+
+        UserSession.findOneAndUpdate({
+            _id: token,
+            isDelete: false
+        }, {
+            $set: {isDelete: true}
+        }, null, (err, session) => {
+            if(err) {
+                console.log(err);
+                return res.send({
+                    success: false,
+                    message: '오류: 서버 오류가 발생했습니다.'
+                });
+            }
+
+            return res.send({
+                success: true,
+                message: 'success'
+            });
+        });
     });
 }
