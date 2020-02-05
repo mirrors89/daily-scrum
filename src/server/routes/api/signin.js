@@ -163,7 +163,6 @@ module.exports = (app) => {
             isDelete: false
         }, (err, session) => {
             if(err) {
-                console.log(err);
                 return res.send({
                     success: false,
                     message: '오류: 서버 오류가 발생했습니다.'
@@ -177,10 +176,28 @@ module.exports = (app) => {
                 });
             }
 
-            return res.send({
-                success: true,
-                message: 'success'
+            User.findOne({
+                _id: session[0].userId,
+                isDelete: false
+            },
+                (err, user) => {
+
+                    if(err) {
+                        console.log(err);
+                        return res.send({
+                            success: false,
+                            message: '오류: 서버 오류가 발생했습니다.'
+                        });
+                    }
+
+                    return res.send({
+                        success: true,
+                        user: user,
+                        message: 'success'
+                    });
             });
+
+
         });
     });
 

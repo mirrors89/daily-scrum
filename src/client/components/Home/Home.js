@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
 
 import SignIn from './SignIn';
+import ScrumBoard from '../Scrum/ScrumBoard';
+import ScrumJira from '../Scrum/ScrumJira';
 
 import {
-  getFromStorage,
-  setInStorage
+  getFromStorage
 } from '../../util/storage';
 
 class Home extends Component {
@@ -98,10 +99,10 @@ class Home extends Component {
     }
 
     return (
-      <>
-        <p>Account</p>
-        <button onClick={this.logout}>Logout</button>
-      </>
+      <div style={{display: 'flex'}}>
+        <ScrumBoard />
+        <ScrumJira />
+      </div>
     );
   }
 }
