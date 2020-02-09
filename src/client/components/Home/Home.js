@@ -4,7 +4,6 @@ import 'whatwg-fetch';
 
 import SignIn from './SignIn';
 import ScrumBoard from '../Scrum/ScrumBoard';
-import ScrumJira from '../Scrum/ScrumJira';
 
 import {
   getFromStorage
@@ -101,7 +100,6 @@ class Home extends Component {
     return (
       <div style={{display: 'flex'}}>
         <ScrumBoard />
-        <ScrumJira />
       </div>
     );
   }

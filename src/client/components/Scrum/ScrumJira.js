@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
 
 import {
     getFromStorage
@@ -10,6 +9,7 @@ class Scrum extends Component {
     super(props);
 
     this.state = {
+      scrumBoard: props.scrumBoard,
       issues: [],
       selectContent: 1,
       content1: '',
@@ -33,7 +33,6 @@ class Scrum extends Component {
         })
 
     });
-
   }
 
   onTextAreaChangeContent1 = (event) => {
@@ -41,13 +40,11 @@ class Scrum extends Component {
       content1: event.target.value
     });
   }
-
   onTextAreaChangeContent2 = (event) => {
     this.setState({
       content2: event.target.value
     });
   }
-
   onTextAreaChangeContent3 = (event) => {
     this.setState({
       content3: event.target.value
@@ -106,6 +103,35 @@ class Scrum extends Component {
 
   }
 
+  onPostScrum = () => {
+    const obj = getFromStorage('daily_app');
+    const {
+      scrumBoard,
+      content1,
+      content2,
+      content3,
+    } = this.state;
+
+    fetch('/api/scrum', {
+      method: 'POST',
+      headers: {
+        'Authorization': obj.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        scrumBoardId: scrumBoard._id,
+        content1: content1,
+        content2: content2,
+        content3: content3
+      })
+    })
+    .then(res => res.json())
+    .then(json => {
+    });
+
+  }
+
+
   render() {
     const {
         issues,
@@ -117,7 +143,11 @@ class Scrum extends Component {
     const list = issues.map(
         data => {
           const value = data.key + ' ' + data.title;
-          return (<p key={data.key} value={value} onClick={(e) => this.onJiraInputSelectContent(e, value)}>{data.key} {data.title} : {data.storyPoint}</p>)
+          return (<p key={data.key} 
+                    value={value} 
+                    onClick={(e) => this.onJiraInputSelectContent(e, value)}>
+                      {data.key} {data.title} : {data.storyPoint}
+                  </p>)
         }
     );
 
@@ -132,6 +162,7 @@ class Scrum extends Component {
         </div>
 
         <div>
+          <button onClick={this.onPostScrum}>저장하기</button>
           <div>
             <p>1) 어제까지 한 일</p>
             <textarea

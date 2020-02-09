@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Scrum from './Scrum';
+import ScrumJira from './ScrumJira';
 
 import {
   getDate,
@@ -13,32 +14,19 @@ class ScrumBoard extends Component {
     this.state = {
       scrumBoard: null,
       users: [],
-      scrum: []
+      scrum: [],
+      usersReady: false,
+      scrumReady: false
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getUsers();
     this.getScrumBoard();
-    
-    const {
-      scrumBoard
-    } = this.state;
-
-    
-    fetch('/api/scrum/list?scrumBoardId=' + scrumBoard)
-    .then(res => res.json())
-    .then(json => {
-      this.setState({
-        scrum: json.scrums
-      });
-    });
-
-    
   }
 
-  getScrumBoard = () => {
-    fetch('/api/scrum/board?date=' + getDate())
+   getScrumBoard = async () => {
+    await fetch('/api/scrum/board?date=' + getDate())
     .then(res => res.json())
     .then(json => {
       if(json.success) {
@@ -65,6 +53,10 @@ class ScrumBoard extends Component {
         });
       }
     });
+
+    this.getScrum();
+
+
   }
 
   getUsers = () => {
@@ -73,9 +65,25 @@ class ScrumBoard extends Component {
     .then(json => {
       if(json.success) {
         this.setState({
-          users: json.users
+          users: json.users,
+          usersReady: true
         });
       }
+    });
+  }
+
+  getScrum = () => {
+    const {
+      scrumBoard
+    } = this.state;
+
+    fetch('/api/scrum/list?scrumBoardId=' + scrumBoard._id)
+    .then(res => res.json())
+    .then(json => {
+      this.setState({
+        scrum: json.scrums,
+        scrumReady: true
+      });
     });
   }
 
@@ -83,41 +91,43 @@ class ScrumBoard extends Component {
     const { 
       scrumBoard,
       users,
-      scrum
+      scrum,
+      usersReady,
+      scrumReady
     } = this.state;
 
     users.forEach(user => {
       scrum.forEach(doc => {
-        if(user.id == doc.userId) {
-          user.scrum = doc;
+        if(user._id == doc.userId) {
+          user.content1 = doc.content1;
+          user.content2 = doc.content2;
+          user.content3 = doc.content3;
         }
       })
     });
 
-
-    if(users.length > 0) {
-      console.log(users);
-
+    if(usersReady && scrumReady) {
       const list = users.map(
         data => (<Scrum key={data._id} user={data}/>)
       );
 
       if(scrumBoard) {
         return (
-          <div style={{flex: 2}}>
-            <div>{scrumBoard.date}</div>
-            <div>{list}</div>
-          </div>
+          <>
+            <div style={{flex: 2}}>
+              <div>{scrumBoard.date}</div>
+              <div>{list}</div>
+            </div>
+            <ScrumJira scrumBoard={scrumBoard} />
+          </>
         )
       }
   }
 
-     
-
-    return (
-      <>
-      </>
-    )
+  return (
+    <>
+    </>
+  )
   }
 }
 

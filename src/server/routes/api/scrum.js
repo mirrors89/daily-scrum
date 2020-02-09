@@ -1,5 +1,6 @@
 const Scrum = require('../../models/Scrum');
 const ScrumBoard = require('../../models/ScrumBoard');
+const UserSession = require('../../models/UserSession');
 
 module.exports = (app) => {
 
@@ -76,28 +77,50 @@ module.exports = (app) => {
         });
     });
 
-    app.post('/api/scrum/list', (req, res, next) => {
+    app.post('/api/scrum', (req, res, next) => {
         const { headers } = req;
         const { authorization } = headers;
         const { body } = req; 
+        
         const {
+            scrumBoardId,
             content1,
             content2,
             content3
          } = body;
 
-        
-
-
+         const scrum = new Scrum();
          UserSession.findOne({
             _id: authorization,
             isDelete: false
-        }, (err, userSession) => {
-            userSession.userId;
+        }).exec()
+        .then(userSession => {
+
+            scrum.userId = userSession.userId;
+            scrum.scrumBoardId = scrumBoardId;
+            scrum.content1 = content1;
+            scrum.content2 = content2;
+            scrum.content3 = content3;
             
-
+            scrum.save((err, doc) => {
+                if(err) {
+                    return res.send({
+                        success: false,
+                        message: '오류: 서버 오류가 발생했습니다.'
+                    });
+                }
+                return res.send({
+                    success: true,
+                    scrum: doc
+                });
+            });
+        })
+        .then(undefined, err => {
+            return res.send({
+                success: false,
+                message: '오류: 서버 오류가 발생했습니다.'
+            });
         });
-
     });
 
 }
