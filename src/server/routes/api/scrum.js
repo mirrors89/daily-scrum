@@ -9,14 +9,8 @@ module.exports = (app) => {
 
         ScrumBoard.findOne({
             date: date
-        }, (err, scrumBoard) => {
-            if(err) {
-                return res.send({
-                    success: false,
-                    message: '오류: 서버 오류가 발생했습니다.'
-                });
-            }
-
+        }).exec()
+        .then(scrumBoard => {
             if(!scrumBoard) {
                 return res.send({
                     success: false,
@@ -29,6 +23,12 @@ module.exports = (app) => {
                 scrumBoard: scrumBoard,
             });
 
+        })
+        .then(undefined, (err) => {
+            return res.send({
+                success: false,
+                message: '오류: 서버 오류가 발생했습니다.'
+            });
         });
     });
 
@@ -61,19 +61,43 @@ module.exports = (app) => {
 
         Scrum.find({
             scrumBoardId: scrumBoardId
-        }, (err, scrums) => {
-
-            if(err) {
-                return res.send({
-                    success: false,
-                    message: '오류: 서버 오류가 발생했습니다.'
-                });
-            }
+        }).exec()
+        .then(scrums => {
             return res.send({
                 success: true,
                 scrums: scrums
             });
+        })
+        .then(undefined, (err) => {
+            return res.send({
+                success: false,
+                message: '오류: 서버 오류가 발생했습니다.'
+            });
         });
+    });
+
+    app.post('/api/scrum/list', (req, res, next) => {
+        const { headers } = req;
+        const { authorization } = headers;
+        const { body } = req; 
+        const {
+            content1,
+            content2,
+            content3
+         } = body;
+
+        
+
+
+         UserSession.findOne({
+            _id: authorization,
+            isDelete: false
+        }, (err, userSession) => {
+            userSession.userId;
+            
+
+        });
+
     });
 
 }

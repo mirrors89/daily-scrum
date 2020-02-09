@@ -3,8 +3,11 @@ h1 {
 }
 
 body {
-  text-align: center;
   margin: auto;
+}
+
+p {
+  margin: 3px;
 }
 
 .border-styles {

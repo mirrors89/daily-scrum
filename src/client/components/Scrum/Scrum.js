@@ -6,9 +6,6 @@ class Scrum extends Component {
 
   }
 
-  componentDidMount() {
-  }
-
   render() {
     const { user } = this.props;
 
@@ -18,7 +15,7 @@ class Scrum extends Component {
           <p>{user.username}</p>
           <p>1) 어제까지 한 일 {user.content1}</p>
           <p>2) 오늘 할 일 {user.content2}</p>
-          <p>3. 일정 내 못 마칠 것 같은 일 {user.content3}</p>
+          <p>3) 일정 내 못 마칠 것 같은 일 {user.content3}</p>
         </div>
       </>
     )

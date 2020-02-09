@@ -94,18 +94,23 @@ class ScrumBoard extends Component {
       })
     });
 
-    const list = users.map(
-      data => (<Scrum key={data._id} user={data}/>)
-    );
 
-    if(scrumBoard) {
-      return (
-        <div style={{flex: 2}}>
-          <div>{scrumBoard.date}</div>
-          <div>{list}</div>
-        </div>
-      )
-    }
+    if(users.length > 0) {
+      console.log(users);
+
+      const list = users.map(
+        data => (<Scrum key={data._id} user={data}/>)
+      );
+
+      if(scrumBoard) {
+        return (
+          <div style={{flex: 2}}>
+            <div>{scrumBoard.date}</div>
+            <div>{list}</div>
+          </div>
+        )
+      }
+  }
 
      
 

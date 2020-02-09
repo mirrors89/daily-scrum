@@ -65,9 +65,7 @@ class SignIn extends Component {
   };
 
   render() {
-    const { 
-      isLoading,
-      token,
+    const {
       signInEmail,
       signInPassword,
       signInError
