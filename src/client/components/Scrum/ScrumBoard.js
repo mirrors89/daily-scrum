@@ -107,8 +107,13 @@ class ScrumBoard extends Component {
     });
 
     if(usersReady && scrumReady) {
-      const list = users.map(
-        data => (<Scrum key={data._id} user={data}/>)
+      const notWriteScrumUsers = users
+                                  .filter(user => !(user.content1 || user.content2 || user.content3))
+                                  .map(user => user.username)
+                                  .join(", ");
+
+      const scrumList = users.map(
+        user => (<Scrum key={user._id} user={user}/>)
       );
 
       if(scrumBoard) {
@@ -116,7 +121,9 @@ class ScrumBoard extends Component {
           <>
             <div style={{flex: 2}}>
               <div>{scrumBoard.date}</div>
-              <div>{list}</div>
+              <div>미작성 인원: {notWriteScrumUsers}</div>
+
+              <div>{scrumList}</div>
             </div>
             <ScrumJira scrumBoard={scrumBoard} />
           </>
