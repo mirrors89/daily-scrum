@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 import {
     getFromStorage
@@ -127,8 +131,18 @@ class Scrum extends Component {
     })
     .then(res => res.json())
     .then(json => {
+      if(json.success) {
+        MySwal.fire({
+          title: <p>저장되었습니다.</p>,
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+          onClose: () => {
+            location.reload();
+          }
+        })
+      }
     });
-
   }
 
 
