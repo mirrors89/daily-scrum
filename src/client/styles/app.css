@@ -16,3 +16,7 @@ p {
   border-width: 2px;
   border-color: #aaa;
 }
+
+.display-linebreak {
+  white-space: pre-line;
+}
