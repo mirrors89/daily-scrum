@@ -1,22 +1,128 @@
-h1 {
-  color: green;
-}
-
+/* reset.css */
 body {
-  margin: auto;
+  font-family: sans-serif;
 }
 
-p {
-  margin: 3px;
+body * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.border-styles {
-  margin: 2px 0;
-  padding: 1px 3px;
-  border-width: 2px;
-  border-color: #aaa;
+li {
+  list-style: none;
 }
 
-.display-linebreak {
+a {
+  text-decoration: none;
+}
+
+
+/* Header.css */
+
+.header h1 a {
+  color: goldenrod;
+}
+
+/* main.css */
+.main-section {
+  display: flex;
+}
+
+/* main - scrum board */
+.scrum-board {
+  flex: 2;
+}
+
+.scrum-date,
+.nonScrum-member {
+  text-align: center;
+}
+
+.scrum-date {
+  color: rgb(120, 119, 147);
+}
+
+.nonScrum-member {
+  color: rgb(236, 76, 124);
+}
+.pinterest-layout {
+  column-width: 350px;
+  column-gap: 15px;
+  padding: 10px;
+}
+
+.daily-scrum-wrapper {
+  display: inline-block;
+  margin:0;
+  margin-bottom: 15px;
+  padding:10px;
+  border: 1px solid rgb(109, 107, 209);
+}
+
+.member-name {
+  color: rgb(85, 84, 103);
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 2px;
+  margin-bottom: 5px;
+}
+
+.scrum-board-title {
+  padding: 10px 0;
+}
+
+.scrum-content {
+  color: rgb(109, 107, 209);
+  margin-bottom: 5px;
   white-space: pre-line;
+}
+
+/* main - scrum Jira */
+.scrum-jira {
+  flex: 1;
+}
+
+.jira-list-wrapper {
+  border: 1px solid rgb(109, 107, 209);
+  padding: 3px;
+}
+
+.jira-list {
+  color: rgb(83, 81, 101);
+  padding: 3px 0;
+  cursor: pointer;
+}
+
+.jira-list:hover {
+  color: rgb(236, 76, 124);
+}
+
+.scrum-work-title {
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* Footer.css */
+
+/* common.css */
+.btn {
+  width: 150px;
+  border-radius: 5px;
+  font-size: 13px;
+  text-align: center;
+  background-color: #fff;
+  color: #fff;
+  padding: 10px 5px;
+  cursor: pointer;
+}
+
+.btn.btn-ivory {
+  background-color: rgb(109, 107, 209);
+}
+
+.btn-ivory-outline {
+  background-color: rgb(240, 240, 245);
+  color: rgb(109, 107, 209);
 }

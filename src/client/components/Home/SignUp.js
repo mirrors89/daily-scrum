@@ -160,7 +160,7 @@ class SignUp extends Component {
             value={signUpApiToken}
             onChange={this.onTextboxChangeSignUpApiToken} />
             <br />
-            <button onClick={this.onSignUp}>Sign Up</button>
+            <button className="btn btn-ivory" onClick={this.onSignUp}>Sign Up</button>
         </div>
     </>)
   }
