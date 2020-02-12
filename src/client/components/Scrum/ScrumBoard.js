@@ -119,12 +119,12 @@ class ScrumBoard extends Component {
       if(scrumBoard) {
         return (
           <>
-            <div style={{flex: 2}}>
-              <div>{scrumBoard.date}</div>
-              <div>미작성 인원: {notWriteScrumUsers}</div>
+            <section className="scrum-board">
+              <div className="scrum-date">{scrumBoard.date}</div>
+              <p className="nonScrum-member">미작성 인원: {notWriteScrumUsers}</p>
 
-              <div>{scrumList}</div>
-            </div>
+              <div className="pinterest-layout">{scrumList}</div>
+            </section>
             <ScrumJira scrumBoard={scrumBoard} />
           </>
         )

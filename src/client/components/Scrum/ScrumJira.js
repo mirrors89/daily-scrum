@@ -149,6 +149,7 @@ class Scrum extends Component {
   render() {
     const {
         issues,
+        selectContent,
         content1,
         content2,
         content3
@@ -157,26 +158,27 @@ class Scrum extends Component {
     const list = issues.map(
         data => {
           const value = data.key + ' ' + data.title;
-          return (<p key={data.key} 
+          return (<li className="jira-list" key={data.key} 
                     value={value} 
                     onClick={(e) => this.onJiraInputSelectContent(e, value)}>
                       {data.key} {data.title} : {data.storyPoint}
-                  </p>)
+                  </li>)
         }
     );
 
     return (
-      <div style={{flex: 1}}>
-        <div>
+      <section className="scrum-jira">
+        <ul className="jira-list-wrapper">
             {list}
+        </ul>
+
+        <div className="scrum-work-title">
+        {selectContent === 1 ? "어제까지 한 일" : ""}
+        {selectContent === 2 ? "오늘 할 일" : ""}
+        {selectContent === 3 ? "일정 내 못 마칠 것 같은 일" : ""}
         </div>
 
         <div>
-        ========================
-        </div>
-
-        <div>
-          <button onClick={this.onPostScrum}>저장하기</button>
           <div>
             <p>1) 어제까지 한 일</p>
             <textarea
@@ -201,8 +203,9 @@ class Scrum extends Component {
             onClick={this.onClickTextAreaContent3}
             onChange={this.onTextAreaChangeContent3} />
           </div>
+          <button className="btn btn-ivory" onClick={this.onPostScrum}>저장하기</button>
         </div>
-      </div>
+      </section>
     )
   }
 }

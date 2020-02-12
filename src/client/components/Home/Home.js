@@ -92,13 +92,13 @@ class Home extends Component {
       <> 
         <SignIn onSubmit={this.setToken} />
         <Link to="/signup">
-          <button>Sign Up</button>
+          <button className="btn btn-ivory">Sign Up</button>
         </Link>
       </>);
     }
 
     return (
-      <div style={{display: 'flex'}}>
+      <div className="main-section" style={{display: 'flex'}}>
         <ScrumBoard />
       </div>
     );

@@ -92,7 +92,7 @@ class SignIn extends Component {
             value={signInPassword}
             onChange={this.onTextboxChangeSignInPassword} />
           <br />
-          <button onClick={this.onSignIn}>Sign In</button>
+          <button className="btn btn-ivory" onClick={this.onSignIn}>Sign In</button>
         </div>
 
       </>);
