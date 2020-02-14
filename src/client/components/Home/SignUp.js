@@ -8,84 +8,84 @@ import {
 
 class SignUp extends Component {
 
-    constructor(props) {
-        super(props);
-    
-        this.state = {
-          isLoading: true,
-          token: '',
-          signUpEmail: '',
-          signUpPassword: '',
-          signUpUserName: '',
-          signUpApiToken: '',
-          signUpError: ''
-        };
-    }
+  constructor(props) {
+      super(props);
+  
+      this.state = {
+        isLoading: true,
+        token: '',
+        signUpEmail: '',
+        signUpPassword: '',
+        signUpUserName: '',
+        signUpApiToken: '',
+        signUpError: ''
+      };
+  }
 
-    componentDidMount() {
-        const obj = getFromStorage('daily_app');
-        if(obj && obj.token) {
-          const { token } = obj;
-    
-          fetch('/api/account/verify?token=' + token)
-            .then(res => res.json())
-            .then(json => {
-              if(json.success) {
-                 this.setState({
-                   token: token,
-                   isLoading: false
-                 });
-              } else {
-                this.setState({
-                  isLoading: false
-                });
-              }
-            });
-    
-        } else {
-          this.setState({
-            isLoading: false
-          });
-        }
-      }
+  componentDidMount() {
+    const obj = getFromStorage('daily_app');
+    if(obj && obj.token) {
+      const { token } = obj;
 
-
-      onSignUp = () => {
-        const {
-          signUpEmail,
-          signUpPassword,
-          signUpUserName,
-          signUpApiToken
-        } = this.state;
-    
-        fetch('/api/account/signup', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: signUpEmail,
-            password: signUpPassword,
-            username: signUpUserName,
-            apiToken: signUpApiToken
-          })
-        })
+      fetch('/api/account/verify?token=' + token)
         .then(res => res.json())
         .then(json => {
           if(json.success) {
+              this.setState({
+                token: token,
+                isLoading: false
+              });
+          } else {
             this.setState({
-              signUpEmail: '',
-              signUpPassword: '',
-              signUpUserName: '',
-              signUpApiToken: ''
-            })
+              isLoading: false
+            });
           }
-          this.setState({
-            signUpError: json.message,
-            isLoading: false
-          })
         });
+
+    } else {
+      this.setState({
+        isLoading: false
+      });
+    }
+  }
+
+
+  onSignUp = () => {
+    const {
+      signUpEmail,
+      signUpPassword,
+      signUpUserName,
+      signUpApiToken
+    } = this.state;
+
+    fetch('/api/account/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: signUpEmail,
+        password: signUpPassword,
+        username: signUpUserName,
+        apiToken: signUpApiToken
+      })
+    })
+    .then(res => res.json())
+    .then(json => {
+      if(json.success) {
+        this.setState({
+          signUpEmail: '',
+          signUpPassword: '',
+          signUpUserName: '',
+          signUpApiToken: ''
+        })
       }
+      this.setState({
+        signUpError: json.message,
+        isLoading: false
+      })
+    });
+  }
 
   onTextboxChangeSignUpEmail = (event) => {
     this.setState({
@@ -107,6 +107,14 @@ class SignUp extends Component {
       signUpApiToken: event.target.value
     });
   }
+
+
+  onSignUpByEnterKey = (event) => {
+    if (event.key === 'Enter') {
+      this.onSignUp();
+    }
+  }
+
 
   render() {
     const { 
@@ -140,24 +148,28 @@ class SignUp extends Component {
             type="email"
             placeholder="Email"
             value={signUpEmail}
+            onKeyDown={this.onSignUpByEnterKey}
             onChange={this.onTextboxChangeSignUpEmail} />
             <br />
             <input
             type="password"
             placeholder="Password"
             value={signUpPassword}
+            onKeyDown={this.onSignUpByEnterKey}
             onChange={this.onTextboxChangeSignUpPassword} />
             <br />
             <input
             type="text"
             placeholder="이름"
             value={signUpUserName}
+            onKeyDown={this.onSignUpByEnterKey}
             onChange={this.onTextboxChangeSignUpUsername} />
             <br />
             <input
             type="text"
             placeholder="API token"
             value={signUpApiToken}
+            onKeyDown={this.onSignUpByEnterKey}
             onChange={this.onTextboxChangeSignUpApiToken} />
             <br />
             <button className="btn btn-ivory" onClick={this.onSignUp}>Sign Up</button>

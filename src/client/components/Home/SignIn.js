@@ -30,6 +30,11 @@ class SignIn extends Component {
       signInPassword: event.target.value
     });
   }
+  onSignInByEnterKey = (event) => {
+    if (event.key === 'Enter') {
+      this.onSignIn();
+    }
+  }
 
   onSignIn = () => {
     const {
@@ -84,12 +89,14 @@ class SignIn extends Component {
             type="email"
             placeholder="Email"
             value={signInEmail}
+            onKeyDown={this.onSignInByEnterKey}
             onChange={this.onTextboxChangeSignInEmail} />
           <br />
           <input 
             type="password"
             placeholder="Password"
             value={signInPassword}
+            onKeyDown={this.onSignInByEnterKey}
             onChange={this.onTextboxChangeSignInPassword} />
           <br />
           <button className="btn btn-ivory" onClick={this.onSignIn}>Sign In</button>
