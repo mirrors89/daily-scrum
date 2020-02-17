@@ -90,10 +90,12 @@ class Home extends Component {
     if(!token) {
       return (
       <> 
-        <SignIn onSubmit={this.setToken} />
-        <Link to="/signup">
-          <button className="btn btn-ivory">Sign Up</button>
-        </Link>
+        <div className="login-form">
+          <SignIn onSubmit={this.setToken} />
+          <Link to="/signup">
+            <button className="btn btn-ivory">Sign Up</button>
+          </Link>
+        </div>
       </>);
     }
 

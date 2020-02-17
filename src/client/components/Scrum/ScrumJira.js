@@ -178,8 +178,8 @@ class Scrum extends Component {
         {selectContent === 3 ? "일정 내 못 마칠 것 같은 일" : ""}
         </div>
 
-        <div>
-          <div>
+        <div className="scrum-work-wrapper">
+          <div className ="scrum-work-board">
             <p>1) 어제까지 한 일</p>
             <textarea
             cols={40} rows={6}
@@ -187,7 +187,7 @@ class Scrum extends Component {
             onClick={this.onClickTextAreaContent1}
             onChange={this.onTextAreaChangeContent1} />
           </div>
-          <div>
+          <div className ="scrum-work-board">
             <p>2) 오늘 할 일</p>
             <textarea
             cols={40} rows={6}
@@ -195,7 +195,7 @@ class Scrum extends Component {
             onClick={this.onClickTextAreaContent2}
             onChange={this.onTextAreaChangeContent2} />
           </div>
-          <div>
+          <div className ="scrum-work-board">
             <p>3) 일정 내 못 마칠 것 같은 일</p>
             <textarea
             cols={40} rows={6}
