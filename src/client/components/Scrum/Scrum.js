@@ -24,7 +24,7 @@ class Scrum extends Component {
           </div>
           <div>
             <p className="scrum-board-title">3) 일정 내 못 마칠 것 같은 일</p>
-            <div className="scrum-content">{user.content3 || '-'}</div>
+            <div className="scrum-content overdue-work">{user.content3 || '-'}</div>
           </div>
         </article>
       </>

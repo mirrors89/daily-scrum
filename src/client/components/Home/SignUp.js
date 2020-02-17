@@ -137,41 +137,46 @@ class SignUp extends Component {
 
     return (
     <>
-        <div>
+        <div className="login-form">
             {
             (signUpError) ?  (
                 <p>{signUpError}</p>
             ) : ( null )
             }
-            <p> Sign Up </p>
-            <input
-            type="email"
-            placeholder="Email"
-            value={signUpEmail}
-            onKeyDown={this.onSignUpByEnterKey}
-            onChange={this.onTextboxChangeSignUpEmail} />
-            <br />
-            <input
-            type="password"
-            placeholder="Password"
-            value={signUpPassword}
-            onKeyDown={this.onSignUpByEnterKey}
-            onChange={this.onTextboxChangeSignUpPassword} />
-            <br />
-            <input
-            type="text"
-            placeholder="이름"
-            value={signUpUserName}
-            onKeyDown={this.onSignUpByEnterKey}
-            onChange={this.onTextboxChangeSignUpUsername} />
-            <br />
-            <input
-            type="text"
-            placeholder="API token"
-            value={signUpApiToken}
-            onKeyDown={this.onSignUpByEnterKey}
-            onChange={this.onTextboxChangeSignUpApiToken} />
-            <br />
+
+            <p className="title"> Sign Up </p>
+            <div className="input-sign-form">
+              <input
+              type="email"
+              placeholder="Email"
+              value={signUpEmail}
+              onKeyDown={this.onSignUpByEnterKey}
+              onChange={this.onTextboxChangeSignUpEmail} />
+            </div>
+            <div className="input-sign-form">
+              <input
+              type="password"
+              placeholder="Password"
+              value={signUpPassword}
+              onKeyDown={this.onSignUpByEnterKey}
+              onChange={this.onTextboxChangeSignUpPassword} />
+            </div>
+            <div className="input-sign-form">
+              <input
+              type="text"
+              placeholder="이름"
+              value={signUpUserName}
+              onKeyDown={this.onSignUpByEnterKey}
+              onChange={this.onTextboxChangeSignUpUsername} />
+            </div>
+            <div className="input-sign-form">
+              <input
+              type="text"
+              placeholder="API token"
+              value={signUpApiToken}
+              onKeyDown={this.onSignUpByEnterKey}
+              onChange={this.onTextboxChangeSignUpApiToken} />
+            </div>
             <button className="btn btn-ivory" onClick={this.onSignUp}>Sign Up</button>
         </div>
     </>)

@@ -7,7 +7,7 @@ library.add(fab)
 
 
 const Footer = () => (
-  <footer>
+  <footer className="footer">
     <div className="container">
       <div style={{textAlign: "center"}}>
         <div style={{marginBottom: "8px"}}>

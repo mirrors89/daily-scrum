@@ -84,21 +84,24 @@ class SignIn extends Component {
               <p>{signInError}</p>
             ) : ( null )
           }
-          <p> Sign In </p>
-          <input 
-            type="email"
-            placeholder="Email"
-            value={signInEmail}
-            onKeyDown={this.onSignInByEnterKey}
-            onChange={this.onTextboxChangeSignInEmail} />
-          <br />
-          <input 
-            type="password"
-            placeholder="Password"
-            value={signInPassword}
-            onKeyDown={this.onSignInByEnterKey}
-            onChange={this.onTextboxChangeSignInPassword} />
-          <br />
+
+          <p className="title"> Sign In </p>
+          <div className="input-sign-form">
+            <input 
+              type="email"
+              placeholder="Email"
+              value={signInEmail}
+              onKeyDown={this.onSignInByEnterKey}
+              onChange={this.onTextboxChangeSignInEmail} />
+          </div>
+          <div className="input-sign-form">
+            <input 
+              type="password"
+              placeholder="Password"
+              value={signInPassword}
+              onKeyDown={this.onSignInByEnterKey}
+              onChange={this.onTextboxChangeSignInPassword} />
+          </div>
           <button className="btn btn-ivory" onClick={this.onSignIn}>Sign In</button>
         </div>
 
