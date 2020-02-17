@@ -30,7 +30,7 @@ module.exports = (app) => {
             });
     
             jira.search.search({
-                jql: 'project = SS2 AND status in ("In Progress", "To Do") AND resolution = Unresolved AND assignee in (currentUser()) ORDER BY priority DESC'
+                jql: 'sprint in openSprints () AND assignee in (currentUser())'
             })
             .then(response => {
                 response.issues.forEach(issue => {
