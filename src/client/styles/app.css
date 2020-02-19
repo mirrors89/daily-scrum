@@ -94,6 +94,10 @@ a {
   color: rgb(236, 76, 124);
 }
 
+.navi {
+  cursor: pointer;
+}
+
 /* main - scrum Jira */
 .scrum-jira {
   flex: 1;

@@ -16,7 +16,10 @@ class ScrumBoard extends Component {
       users: [],
       scrum: [],
       usersReady: false,
-      scrumReady: false
+      scrumReady: false,
+      showContent1: true,
+      showContent2: true,
+      showContent3: true
     };
   }
 
@@ -53,9 +56,7 @@ class ScrumBoard extends Component {
         });
       }
     });
-
     this.getScrum();
-
 
   }
 
@@ -87,13 +88,35 @@ class ScrumBoard extends Component {
     });
   }
 
+  toggleContent1 = () => {
+    let { showContent1 } = this.state;
+    this.setState({
+      showContent1: !showContent1
+    })
+  }
+  toggleContent2 = () => {
+    let { showContent2 } = this.state;
+    this.setState({
+      showContent2: !showContent2
+    })
+  }
+  toggleContent3 = () => {
+    let { showContent3 } = this.state;
+    this.setState({
+      showContent3: !showContent3
+    })
+  }
+
   render() {
     const { 
       scrumBoard,
       users,
       scrum,
       usersReady,
-      scrumReady
+      scrumReady,
+      showContent1,
+      showContent2,
+      showContent3
     } = this.state;
 
     users.forEach(user => {
@@ -113,7 +136,8 @@ class ScrumBoard extends Component {
                                   .join(", ");
 
       const scrumList = users.map(
-        user => (<Scrum key={user._id} user={user}/>)
+        user => (<Scrum key={user._id} user={user} 
+          showContent1={showContent1} showContent2={showContent2} showContent3={showContent3}/>)
       );
 
       if(scrumBoard) {
@@ -122,7 +146,17 @@ class ScrumBoard extends Component {
             <section className="scrum-board">
               <div className="scrum-date">{scrumBoard.date}</div>
               <p className="nonScrum-member">미작성 인원: {notWriteScrumUsers}</p>
-
+              <nav>
+                <div className="container-fluid">
+                  <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul className="nav navbar-nav">
+                      <li className="navi"><a onClick={this.toggleContent1}>1) 어제까지 한 일</a></li>
+                      <li className="navi"><a onClick={this.toggleContent2}>2) 오늘 할 일</a></li>
+                      <li className="navi"><a onClick={this.toggleContent3}>3) 일정 내 못 마칠 것 같은 일</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
               <div className="pinterest-layout">{scrumList}</div>
             </section>
             <ScrumJira scrumBoard={scrumBoard} />
