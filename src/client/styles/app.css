@@ -17,6 +17,9 @@ a {
   text-decoration: none;
 }
 
+#root {
+  margin: 10px;
+}
 
 /* Header.css */
 
@@ -33,6 +36,16 @@ a {
 
 .header .collapse{
   padding: 0;
+}
+
+header {
+  margin: 10px 0px;
+}
+
+header #logout {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 /* main.css */
@@ -65,7 +78,8 @@ a {
 
 .daily-scrum-wrapper {
   display: inline-block;
-  margin:0;
+  width: 330px;
+  vertical-align: top;
   margin: 15px;
   padding:10px;
   border: 1px solid rgb(109, 107, 209);
@@ -154,6 +168,11 @@ a {
   padding: 50px 0;
   margin: 50px auto;
 }
+
+.login-form > div {
+  margin-bottom: 10px;
+}
+
 .input-sign-form {
   width: 280px;
   border: 1px solid rgb(109, 107, 209);

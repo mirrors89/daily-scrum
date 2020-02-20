@@ -52,31 +52,6 @@ class Home extends Component {
     });
   }
 
-  logout = () => {
-    this.setState({
-      isLoading: true
-    })
-
-    const obj = getFromStorage('daily_app');
-    if(obj && obj.token) {
-      const { token } = obj;
-
-      fetch('/api/account/logout?token=' + token)
-      .then(res => res.json())
-      .then(json => {
-        if(json.success) {
-          this.setState({
-            token: '',
-            isLoading: false
-          })
-        }
-        this.setState({
-          isLoading: false
-        })
-      });
-    }
-  }
-
   render() {
     const { 
       isLoading,
