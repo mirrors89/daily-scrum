@@ -58,7 +58,7 @@ header #logout {
   flex: 2;
 }
 
-.scrum-date,
+.scrum-date-wapper,
 .nonScrum-member {
   text-align: center;
   margin: 20px 0;
@@ -66,6 +66,7 @@ header #logout {
 
 .scrum-date {
   color: rgb(120, 119, 147);
+  margin: 0 auto;
 }
 
 .nonScrum-member {

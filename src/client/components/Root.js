@@ -10,6 +10,12 @@ import NotFound from './App/NotFound';
 import Home from './Home/Home';
 import SignUp from './Home/SignUp';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
+library.add(fab, fas)
+
 const Root = () => (
 <BrowserRouter>
     <App>

@@ -7,7 +7,9 @@ module.exports = (app) => {
     app.get('/api/user/list', (req, res, next) => {
         User.find({
             isDelete: false
-        }).exec()
+        })
+        .sort('username')
+        .exec()
         .then(users => {
             return res.send({
                 success: true,

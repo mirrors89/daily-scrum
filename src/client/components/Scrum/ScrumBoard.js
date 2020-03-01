@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Scrum from './Scrum';
 import ScrumJira from './ScrumJira';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import {
-  getDate,
+  getNowDate, 
+  getPrevDate
 } from '../../util/date';
 
 
@@ -12,6 +14,7 @@ class ScrumBoard extends Component {
     super(props);
 
     this.state = {
+      date: getNowDate(),
       scrumBoard: null,
       users: [],
       scrum: [],
@@ -24,12 +27,13 @@ class ScrumBoard extends Component {
   }
 
   async componentDidMount() {
-    this.getUsers();
-    this.getScrumBoard();
+    this.getUsersAndScrum();
   }
 
    getScrumBoard = async () => {
-    await fetch('/api/scrum/board?date=' + getDate())
+    const { date } = this.state;
+
+    await fetch('/api/scrum/board?date=' + date)
     .then(res => res.json())
     .then(json => {
       if(json.success) {
@@ -43,7 +47,7 @@ class ScrumBoard extends Component {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            date: getDate()
+            date: date()
           })
         })
         .then(res => res.json())
@@ -56,8 +60,8 @@ class ScrumBoard extends Component {
         });
       }
     });
-    this.getScrum();
 
+    this.getScrum();
   }
 
   getUsers = () => {
@@ -88,6 +92,11 @@ class ScrumBoard extends Component {
     });
   }
 
+  getUsersAndScrum = () => {
+    this.getUsers();
+    this.getScrumBoard();
+  }
+
   toggleContent1 = () => {
     let { showContent1 } = this.state;
     this.setState({
@@ -107,8 +116,15 @@ class ScrumBoard extends Component {
     })
   }
 
+  changePrevDate = () => {
+    this.setState({
+      date: getPrevDate(),
+      scrum: [],
+    }, this.getUsersAndScrum)
+  }
+
   render() {
-    const { 
+    const {
       scrumBoard,
       users,
       scrum,
@@ -144,7 +160,14 @@ class ScrumBoard extends Component {
         return (
           <>
             <section className="scrum-board">
-              <div className="scrum-date">{scrumBoard.date}</div>
+              <div className="scrum-date-wapper">
+                <div className="scrum-date" onClick={this.changePrevDate}>
+                  <FontAwesomeIcon icon={["fas", "angle-left"]} size="2x" />
+                </div>
+                <div className="scrum-date">
+                  {scrumBoard.date}
+                </div>
+              </div>
               <p className="nonScrum-member">미작성 인원: {notWriteScrumUsers}</p>
               <nav>
                 <div className="container-fluid">

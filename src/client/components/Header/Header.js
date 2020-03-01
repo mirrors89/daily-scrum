@@ -20,7 +20,6 @@ class Header extends Component {
     if(obj && obj.token) {
       const { token } = obj;
 
-      console.log(token);
       if(token) {
         this.setState({
           isLogin: true
@@ -60,7 +59,6 @@ class Header extends Component {
   render() {
     const { isLogin } = this.state;
 
-    console.log(isLogin);
     return (
       <header className="header">
         <div>

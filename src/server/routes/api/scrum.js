@@ -70,6 +70,7 @@ module.exports = (app) => {
             });
         })
         .then(undefined, (err) => {
+            console.log(err);
             return res.send({
                 success: false,
                 message: '오류: 서버 오류가 발생했습니다.'
