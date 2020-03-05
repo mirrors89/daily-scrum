@@ -33,35 +33,39 @@ class ScrumBoard extends Component {
    getScrumBoard = async () => {
     const { date } = this.state;
 
-    await fetch('/api/scrum/board?date=' + date)
+    const response = await fetch('/api/scrum/board?date=' + date)
+                        .then(res => res.json())
+
+    if(response.success) {
+      this.setState({
+        scrumBoard: response.scrumBoard
+      });
+      return;
+    }
+
+    return await this.createScrumBoard();  
+  }
+
+  createScrumBoard = () => {
+    const { date } = this.state;
+
+    fetch('/api/scrum/board', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        date: date
+      })
+    })
     .then(res => res.json())
     .then(json => {
       if(json.success) {
         this.setState({
           scrumBoard: json.scrumBoard
         });
-      } else {
-        fetch('/api/scrum/board', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            date: date()
-          })
-        })
-        .then(res => res.json())
-        .then(json => {
-          if(json.success) {
-            this.setState({
-              scrumBoard: json.scrumBoard
-            });
-          }
-        });
       }
     });
-
-    this.getScrum();
   }
 
   getUsers = () => {
@@ -82,6 +86,8 @@ class ScrumBoard extends Component {
       scrumBoard
     } = this.state;
 
+    console.log(scrumBoard);
+
     fetch('/api/scrum/list?scrumBoardId=' + scrumBoard._id)
     .then(res => res.json())
     .then(json => {
@@ -92,9 +98,10 @@ class ScrumBoard extends Component {
     });
   }
 
-  getUsersAndScrum = () => {
+  getUsersAndScrum = async () => {
     this.getUsers();
-    this.getScrumBoard();
+    await this.getScrumBoard();
+    this.getScrum();
   }
 
   toggleContent1 = () => {
